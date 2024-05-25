@@ -1,0 +1,8 @@
+CC = clang
+CFLAGS = -O3
+
+target: bone.c
+	$(CC) $(CFLAGS) bone.c -o target
+
+clean:
+	rm -f target 
