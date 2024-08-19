@@ -18,7 +18,7 @@
 /*#define CYN "\x1B[36m"*/
 /*#define BLU "\x1B[34m"*/
 /*#define MAG "\x1B[35m"*/
-/*#define WHT "\x1B[37m"*/
+#define WHT "\x1B[37m"
 /*#define BLK "\x1B[30m"*/
 /*#define RESET "\x1B[0m"*/
 /*#define BOLDWHITE "\x1B[1m\x1B[37m"*/
