@@ -11,17 +11,17 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#define BOLD "\x1B[1m"
-#define RED "\x1B[31m"
-#define YEL "\x1B[33m"
-#define GRN "\x1B[32m"
-#define CYN "\x1B[36m"
-#define BLU "\x1B[34m"
-#define MAG "\x1B[35m"
-#define WHT "\x1B[37m"
-#define BLK "\x1B[30m"
-#define RESET "\x1B[0m"
-#define BOLDWHITE "\x1B[1m\x1B[37m"
+/*#define BOLD "\x1B[1m"*/
+/*#define RED "\x1B[31m"*/
+/*#define YEL "\x1B[33m"*/
+/*#define GRN "\x1B[32m"*/
+/*#define CYN "\x1B[36m"*/
+/*#define BLU "\x1B[34m"*/
+/*#define MAG "\x1B[35m"*/
+/*#define WHT "\x1B[37m"*/
+/*#define BLK "\x1B[30m"*/
+/*#define RESET "\x1B[0m"*/
+/*#define BOLDWHITE "\x1B[1m\x1B[37m"*/
 
 #define TOP 48
 #define USR 50
@@ -191,17 +191,15 @@ int main(int argc, const char *argv[]) {
   if ((dir = opendir(path)) != NULL) {
     while ((entry = readdir(dir)) != NULL) {
       if (entry->d_type == DT_DIR) {
-        // Exclude "." and ".."
         if (entry->d_name[0] != '.') {
-          // Get information about the directory entry
-          char full_path[1024]; // Adjust the size accordingly
+          char full_path[1024];
           snprintf(full_path, sizeof(full_path), "%s/%s", path, entry->d_name);
           count++;
         }
       }
     }
-  }
   closedir(dir);
+  }
   char dirC[16];
   snprintf(dirC, sizeof(int), "%d", count);
 
