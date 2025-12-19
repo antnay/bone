@@ -1,10 +1,9 @@
+#include "logo.h"
 #include <dirent.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/_types/_size_t.h>
-#include <sys/_types/_ssize_t.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/utsname.h>
@@ -43,11 +42,6 @@ char **count_subdirectories(const char *path);
 
 int main(int argc, const char *argv[]) {
   char buf[sizeof(char) * 1024] = "";
-  char *art = "                                 ____  _____\n"
-              "           ____ ___  ____  _____/ __ \\/ ___/\n"
-              "          / __ `__ \\/ __ `/ ___/ / / /\\__ \\\n"
-              "         / / / / / / /_/ / /__/ /_/ /___/ /\n"
-              "        /_/ /_/ /_/\\__,_/\\___/\\____//____/\n";
 
   char *pTop = "\n        ╭───────────╮";
   char *pUser =
@@ -71,103 +65,12 @@ int main(int argc, const char *argv[]) {
   char *pDot = "\x1B[37m●  \x1B[31m●  \x1B[33m●  \x1B[32m●  \x1B[36m●  "
                "\x1B[34m●  \x1B[35m●  \x1B[30m●";
 
-  /*size_t pDotL = strlen(pDot); // 78*/
-  /*size_t modifeiers = strlen(BOLDWHITE); // 9*/
-  /*size_t artL = strlen(art);             // 221*/
-  /*size_t pTopL = strlen(pTop);           // 45*/
-  /*size_t pUserL = strlen(pUser);         // 49*/
-  /*size_t pHostL = strlen(pHost);         // 49*/
-  /*size_t pOsL = strlen(pOs);             // 51*/
-  /*size_t pKernL = strlen(pKern);         // 50*/
-  /*size_t pArchL = strlen(pArch);         // 49*/
-  /*size_t pShellL = strlen(pShell);       // 49*/
-  /*size_t pPkgL = strlen(pPkg);           // 50*/
-  /*size_t pSepL = strlen(pSep);           // 53*/
-  /*size_t pColsL = strlen(pCols);         // 31*/
-  /*size_t pBottL = strlen(pBott);         // 59*/
-  /*size_t whtL = strlen(RESET);             // 5*/
-
-  /*printf("dot %zu\n", pDotL);*/
-  // printf("modifier %zu\n", modifeiers);
-  // printf("%zu\n", artL);
-  // printf("top %zu\n", pTopL);
-  // printf("user %zu\n", pUserL);
-  // printf("host %zu\n", pHostL);
-  // printf("os %zu\n", pOsL);
-  // printf("kernal %zu\n", pKernL);
-  // printf("arch %zu\n", pArchL);
-  // printf("shell %zu\n", pShellL);
-  // printf("pkg %zu\n", pPkgL);
-  /*printf("sep %zu\n", pSepL);*/
-  /*printf("colors %zu\n", pColsL);*/
-  /*printf("white %zu\n", whtL);*/
-  /*printf("bottom %zu\n", pBottL);*/
-
   char *user = getlogin();
   size_t userL = strlen(user);
 
   char os[100];
   getMacV(os);
   size_t osL = strlen(os);
-
-  /*int pipefd[2];*/
-  /*pid_t pid;*/
-  /*char buffer[256];*/
-  /*ssize_t vLength;*/
-  /*pipe(pipefd);*/
-  /*pid = fork();*/
-  /**/
-  /*if (pid == 0) { // Child process (sw_vers)*/
-  /*  // Close the read end of the pipe*/
-  /*  close(pipefd[0]);*/
-  /*  // Redirect stdout to the write end of the pipe*/
-  /*  dup2(pipefd[1], STDOUT_FILENO);*/
-  /*  // Close the original write end of the pipe*/
-  /*  close(pipefd[1]);*/
-  /*  // Execute the command*/
-  /*  execlp("sw_vers", "sw_vers", NULL);*/
-  /*  // If execlp fails*/
-  /*  perror("execlp");*/
-  /*  return 1;*/
-  /*} else { // Parent process*/
-  /*  // Close the write end of the pipe*/
-  /*  close(pipefd[1]);*/
-  /*  // Read from the pipe*/
-  /*  ssize_t nbytes = read(pipefd[0], buffer, 256 - 1);*/
-  /*  // Close the read end of the pipe*/
-  /*  close(pipefd[0]);*/
-  /*  if (nbytes == -1) {*/
-  /*    perror("read");*/
-  /*    return 1;*/
-  /*  }*/
-  /*  // Null-terminate the buffer*/
-  /*  buffer[nbytes] = '\0';*/
-  /*  // Tokenize the buffer*/
-  /*  char *token;*/
-  /*  char *delimiters = " \t\n";*/
-  /*  char *tokens[100]; // Assuming at most 100 tokens*/
-  /*  int token_count = 0;*/
-  /**/
-  /*  token = strtok(buffer, delimiters);*/
-  /*  while (token != NULL && token_count < 100) {*/
-  /*    tokens[token_count++] = token;*/
-  /*    token = strtok(NULL, delimiters);*/
-  /*  }*/
-  /**/
-  /*  // Print the tokens*/
-  /*  printf("Tokens:\n");*/
-  /*  for (int i = 0; i < token_count; ++i) {*/
-  /*    printf("%d: %s\n", i, tokens[i]);*/
-  /*  }*/
-  /*  vLength = strlen(tokens[3]);*/
-  /*  memcpy(buffer, tokens[0], 5);*/
-  /*  memcpy(buffer + 5, " ", 1);*/
-  /*  memcpy(buffer + 6, tokens[3], vLength);*/
-  /*  memcpy(buffer + 6 + vLength, "\0", 1);*/
-  /**/
-  /*  wait(NULL);*/
-  /*}*/
-  /*int osLength = strlen(buffer);*/
 
   char host[64];
   gethostname(host, sizeof(host));
@@ -198,13 +101,13 @@ int main(int argc, const char *argv[]) {
         }
       }
     }
-  closedir(dir);
+    closedir(dir);
   }
   char dirC[16];
   snprintf(dirC, sizeof(int), "%d", count);
 
   memcpy(buf, WHT, WHTL);
-  memcpy(buf + WHTL, art, 221);
+  memcpy(buf + WHTL, LOGO, 221);
   size_t bufInd = 226;
 
   memcpy(buf + bufInd, pTop, TOP);
@@ -259,6 +162,7 @@ int main(int argc, const char *argv[]) {
   return 0;
 }
 
+#if defined(__APPLE__)
 int getMacV(char *os) {
   FILE *fp;
   char line[256];
@@ -302,6 +206,7 @@ int getMacV(char *os) {
 
   return 0;
 }
+#endif /* ifdef defined(__APPLE__) */
 
 /*char **count_subdirectories(const char *path) {*/
 /*  DIR *dir;*/
